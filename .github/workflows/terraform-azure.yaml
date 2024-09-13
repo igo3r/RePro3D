@@ -22,9 +22,11 @@ jobs:
 
       - name: Initialize Terraform
         run: terraform init
+        working-directory: infra
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
+        working-directory: infra
 
       - name: Upload Terraform Plan
         uses: actions/upload-artifact@v3
@@ -60,3 +62,4 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
+        working-directory: infra
