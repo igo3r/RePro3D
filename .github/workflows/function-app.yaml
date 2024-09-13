@@ -6,6 +6,7 @@ on:
       - main
 
 env:
+  WORKING_DIRECTORY: "function"
   PACKAGE_PATH: "."
   PYTHON_VERSION: "3.9"
   APP_NAME: "fhbrepro3d"
@@ -16,7 +17,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: function
+        working-directory: ${{ env.WORKING_DIRECTORY }}
 
     steps:
       - name: Checkout repository
@@ -45,8 +46,8 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: python-app
-          path: release.zip
+          name: ${{ env.APP_NAME }}
+          path: ${{ env.WORKING_DIRECTORY }}/release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -58,7 +59,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: python-app
+          name: ${{ env.APP_NAME }}
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
