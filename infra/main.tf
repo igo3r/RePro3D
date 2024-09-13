@@ -6,14 +6,6 @@ module "naming" {
 }
 
 
-### Role Assignments
-/*module "role_assignments" {
-  source = "./modules/role_assignment"
-
-  role_assignments = local.role_assignments
-}*/
-
-
 ### Resource Group
 resource "azurerm_resource_group" "this" {
   name     = local.project_name
@@ -76,7 +68,7 @@ module "key_vault" {
     sku_name                      = "standard"
     public_network_access_enabled = true
     soft_delete_retention_days    = "7"
-    purge_protection_enabled      = false
+    purge_protection_enabled      = true
     enable_rbac_authorization     = true
   }
 }
@@ -90,7 +82,7 @@ module "service_plan" {
   location            = local.location
 
   config = {
-    name     = "repro3d-asp"
+    name     = "${local.project_name}-asp"
     os_type  = "Linux"
     sku_name = "S1"
   }
