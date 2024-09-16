@@ -16,12 +16,6 @@ jobs:
       id-token: write
 
     steps:
-      - uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.ARM_CLIENT_ID }}
-          tenant-id: ${{ secrets.ARM_TENANT_ID }}
-          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-
       - name: Set Terraform environment variables for Azure authentication
         run: |
           echo "ARM_CLIENT_ID=${{ secrets.ARM_CLIENT_ID }}" >> $GITHUB_ENV
@@ -56,18 +50,6 @@ jobs:
       id-token: write
 
     steps:
-      - name: Wait for Approval
-        run: |
-          echo "Waiting for manual approval. Approve by proceeding to the next step."
-          while true; do sleep 60; done
-        timeout-minutes: 360
-
-      - uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.ARM_CLIENT_ID }}
-          tenant-id: ${{ secrets.ARM_TENANT_ID }}
-          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-
       - name: Set Terraform environment variables for Azure authentication
         run: |
           echo "ARM_CLIENT_ID=${{ secrets.ARM_CLIENT_ID }}" >> $GITHUB_ENV
