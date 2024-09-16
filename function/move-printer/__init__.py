@@ -5,7 +5,7 @@ from azure.identity import DefaultAzureCredential
 from azure.keyvault.secrets import SecretClient
 
 # Define Key Vault secrets names
-KEY_VAULT_URL = 'https://kv-repro3d.vault.azure.net'
+KEY_VAULT_URL = 'https://kv-fhbrepro3d.vault.azure.net/'
 TUNNEL_URL_SECRET_NAME = 'TunnelUrl'
 OCTOPRINT_API_KEY_SECRET_NAME = 'OctoprintApiKey'
 

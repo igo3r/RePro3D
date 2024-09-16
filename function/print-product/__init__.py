@@ -11,8 +11,8 @@ import azure.functions as func
 
 # Configurations & constants
 CONFIG = {
-    "KEY_VAULT_URL": 'https://kv-repro3d.vault.azure.net',
-    "STORAGE_ACCOUNT_URL": 'https://repro3d.blob.core.windows.net',
+    "KEY_VAULT_URL": 'https://kv-fhbrepro3d.vault.azure.net/',
+    "STORAGE_ACCOUNT_URL": 'https://fhbrepro3d.blob.core.windows.net',
     "CONTAINER_NAME": 'prusa-mk4',
     "BLOB_NAME": 'prusa-mk4_ring.gcode',
     "TUNNEL_URL_SECRET_NAME": 'TunnelUrl',

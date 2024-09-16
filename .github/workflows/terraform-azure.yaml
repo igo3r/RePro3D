@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  WORKING_DIRECTORY: "infra"
+
 jobs:
   terraform-plan:
     runs-on: ubuntu-latest
@@ -12,9 +15,11 @@ jobs:
     steps:
       - uses: azure/login@v2
         with:
-          creds: '{"clientId":"${{ secrets.ARM_CLIENT_ID }}","clientSecret":"${{ secrets.ARM_CLIENT_SECRET }}","subscriptionId":"${{ secrets.ARM_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.ARM_TENANT_ID }}"}'
+          client-id: ${{ secrets.ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v2
 
       - name: Setup Terraform
@@ -22,11 +27,11 @@ jobs:
 
       - name: Initialize Terraform
         run: terraform init
-        working-directory: infra
+        working-directory: ${{ env.WORKING_DIRECTORY }}
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
-        working-directory: infra
+        working-directory: ${{ env.WORKING_DIRECTORY }}
 
       - name: Upload Terraform Plan
         uses: actions/upload-artifact@v3
@@ -47,9 +52,11 @@ jobs:
 
       - uses: azure/login@v2
         with:
-          creds: '{"clientId":"${{ secrets.ARM_CLIENT_ID }}","clientSecret":"${{ secrets.ARM_CLIENT_SECRET }}","subscriptionId":"${{ secrets.ARM_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.ARM_TENANT_ID }}"}'
-
-      - name: Checkout repository
+          client-id: ${{ secrets.ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          
+      - name: Checkout Repository
         uses: actions/checkout@v2
 
       - name: Download Terraform Plan
@@ -62,4 +69,4 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
-        working-directory: infra
+        working-directory: ${{ env.WORKING_DIRECTORY }}
