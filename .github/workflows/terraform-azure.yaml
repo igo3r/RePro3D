@@ -27,7 +27,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Initialize Terraform
+      - name: Terraform Init
         run: terraform init
         working-directory: ${{ env.WORKING_DIRECTORY }}
 
@@ -61,6 +61,10 @@ jobs:
         with:
           name: tfplan
           path: ${{ env.WORKING_DIRECTORY }}
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ${{ env.WORKING_DIRECTORY }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
