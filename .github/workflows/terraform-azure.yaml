@@ -12,8 +12,6 @@ env:
 jobs:
   terraform-plan:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
 
     steps:
       - name: Set Terraform environment variables for Azure authentication
@@ -46,8 +44,6 @@ jobs:
   terraform-apply:
     needs: terraform-plan
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
 
     steps:
       - name: Set Terraform environment variables for Azure authentication
