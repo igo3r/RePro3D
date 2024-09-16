@@ -60,10 +60,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: tfplan
+          path: ${{ env.WORKING_DIRECTORY }}/tfplan
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
+        run: terraform apply -auto-approve ${{ env.WORKING_DIRECTORY }}/tfplan
         working-directory: ${{ env.WORKING_DIRECTORY }}
