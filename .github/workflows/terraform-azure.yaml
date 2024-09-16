@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: tfplan
-          path: tfplan
+          path: ${{ env.WORKING_DIRECTORY }}/tfplan
 
   terraform-apply:
     needs: terraform-plan
@@ -63,7 +63,7 @@ jobs:
       - name: Download Terraform Plan
         uses: actions/download-artifact@v3
         with:
-          name: tfplan
+          name: ${{ env.WORKING_DIRECTORY }}/tfplan
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
